@@ -13,7 +13,6 @@ modules:
             url: http://myroom.backend.local
             browser: phantomjs
         - Yii2:
-            configFile: 'tests/app/config-test.php'
             part: [init, orm, fixtures]
             cleanup: false
             entryScript: index-test.php

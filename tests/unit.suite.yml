@@ -8,5 +8,4 @@ modules:
         - Asserts
         - \Helper\Unit
         - Yii2:
-              configFile: 'tests/app/config-test.php'
               parts: [init, fixtures]

@@ -13,5 +13,5 @@ use yii\test\ActiveFixture;
 
 class PagesFixture extends ActiveFixture
 {
-    public $modelClass = 'common\modules\seotag\models\Seotag';
+    public $modelClass = 'andrew72ru\seotag\models\Seotag';
 }

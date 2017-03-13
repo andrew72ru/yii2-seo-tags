@@ -1,16 +1,20 @@
 <?php
 // This is global bootstrap for autoloading
+define('YII_ENV', 'test');
 defined('YII_DEBUG') or define('YII_DEBUG', true);
-defined('YII_ENV') or define('YII_ENV', 'test');
 
-defined('YII_APP_BASE_PATH') or define('YII_APP_BASE_PATH', dirname(dirname(dirname(dirname(__DIR__)))));
+// Search for autoload, since performance is irrelevant and usability isn't!
+$dir = __DIR__;
+while (!file_exists($dir . '/vendor/autoload.php')) {
+    if ($dir == dirname($dir)) {
+        throw new \Exception('Failed to locate autoload.php');
+    }
+    $dir = dirname($dir);
+}
 
-require_once(YII_APP_BASE_PATH . '/vendor/autoload.php');
-require_once(YII_APP_BASE_PATH . '/vendor/yiisoft/yii2/Yii.php');
-require_once(YII_APP_BASE_PATH . '/common/config/bootstrap.php');
+$vendor = $dir . '/vendor';
 
-// set correct script paths
-$_SERVER['SERVER_NAME'] = 'localhost';
-$_SERVER['SERVER_PORT'] = '80';
+define('VENDOR_DIR', $vendor);
 
-Yii::setAlias('@tests', dirname(dirname(__DIR__)));
+require_once $vendor . '/autoload.php';
+require $vendor . '/yiisoft/yii2/Yii.php';

@@ -6,12 +6,12 @@
  * Time: 13:43
  */
 
-namespace andrew72ru\seotag\fixtures;
+namespace andrew72ru\seotag\tests\fixtures;
 
 
 use yii\test\ActiveFixture;
 
 class TagsFixtire extends ActiveFixture
 {
-    public $modelClass = 'common\modules\seotag\models\SeotagKeywords';
+    public $modelClass = 'andrew72ru\seotag\models\SeotagKeywords';
 }
