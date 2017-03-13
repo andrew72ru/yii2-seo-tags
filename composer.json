@@ -1,21 +1,34 @@
 {
-    "name": "andrew72ru/yii2-seo-tags",
-    "description": "Add a description, keywords, etc. tags to site page by url",
-    "type": "yii2-extension",
-    "keywords": ["yii2","extension","seo"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "andrew72ru",
-            "email": "andrew72ru@gmail.com"
-        }
-    ],
-    "require": {
-        "yiisoft/yii2": "*"
-    },
-    "autoload": {
-        "psr-4": {
-            "andrew72ru\\seolinks\\": ""
-        }
+  "name": "andrew72ru/yii2-seo-tags",
+  "description": "Add a description, keywords, etc. tags to site page by url",
+  "type": "yii2-extension",
+  "keywords": ["yii2","extension","seo"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "andrew72ru",
+      "email": "andrew72ru@gmail.com"
     }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "yiisoft/yii2": ">=2.0.6",
+    "kartik-v/yii2-widget-typeahead": "^1.0",
+    "kartik-v/yii2-widget-select2": "2.0.x-dev",
+    "rmrevin/yii2-fontawesome": "~2.12"
+  },
+  "require-dev": {
+    "codeception/codeception": "*",
+    "yiisoft/yii2-debug": "*",
+    "yiisoft/yii2-gii": "*",
+    "yiisoft/yii2-faker": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "andrew72ru\\seotag\\": ""
+    }
+  },
+  "extra": {
+    "bootstrap": "andrew72ru\\seotag\\Bootstrap"
+  }
 }
