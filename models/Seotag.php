@@ -96,6 +96,13 @@ class Seotag extends \yii\db\ActiveRecord
             'big_image_url' => $imageModel->saveBig($this->large_pict, $this->id),
             'small_image_url' => $imageModel->saveSmall($this->small_pict, $this->id),
         ]);
+
+        if($imageModel->hasErrors('large_url'))
+            $this->addError('large_pict', $imageModel->getErrors('large_url'));
+
+        if($imageModel->hasErrors('small_url'))
+            $this->addError('small_pict', $imageModel->getErrors('small_url'));
+
     }
 
     /**

@@ -38,6 +38,9 @@ class SeotagImage extends Model
     private $dir;
     private $url;
 
+    public $large_url;
+    public $small_url;
+
     public function init()
     {
         parent::init();
@@ -65,6 +68,7 @@ class SeotagImage extends Model
                 ->save($this->createDir($id) . DIRECTORY_SEPARATOR . 'big.jpg');
         } catch (\Exception $e)
         {
+            $this->addError('large_url', $e->getMessage());
             return null;
         }
 
@@ -84,6 +88,7 @@ class SeotagImage extends Model
                 ->save($this->createDir($id) . DIRECTORY_SEPARATOR . 'small.jpg');
         } catch (\Exception $e)
         {
+            $this->addError('small_url', $e->getMessage());
             return null;
         }
 
