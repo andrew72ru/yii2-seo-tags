@@ -1,6 +1,6 @@
 <?php
 
-namespace console\migrations;
+namespace andrew72ru\seotag\commands;
 
 use yii\db\Migration;
 
