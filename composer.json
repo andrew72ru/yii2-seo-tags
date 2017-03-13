@@ -15,7 +15,9 @@
     "yiisoft/yii2": ">=2.0.6",
     "kartik-v/yii2-widget-typeahead": "^1.0",
     "kartik-v/yii2-widget-select2": "2.0.x-dev",
-    "rmrevin/yii2-fontawesome": "~2.12"
+    "rmrevin/yii2-fontawesome": "~2.12",
+    "intervention/image": "^2.3",
+    "ext-imagick": "*"
   },
   "require-dev": {
     "codeception/codeception": "*",
