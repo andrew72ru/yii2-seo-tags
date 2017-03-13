@@ -11,4 +11,6 @@ modules:
         - \Helper\Functional
         - Yii2:
             parts: [init, fixtures, orm]
+        - Filesystem
+        - Asserts
         - \Helper\Acceptance
