@@ -1,6 +1,10 @@
 SEO tags module
 ===============
-Add a description, keywords, etc. tags to site page by url
+Adds a description, keywords, etc. tags to site page by url
+
+> ATTENTION 
+>
+> Module is in alfa-version, some classes are not exists! Do not use as is!
 
 Installation
 ------------
@@ -21,11 +25,68 @@ or add
 
 to the require section of your `composer.json` file.
 
+**!!! will not work, moodule is not published in packagist**
+
+Settings
+--------
+
+In you application config:
+
+```php
+…
+'modules' => [
+    'seotag' => [
+        'class' => 'andrew72ru\seotag\Module',
+        'urlManager' => 'yii\web\UrlManager'
+    ]
+]
+```
+
+`UrlManager` uses if application use backend / frontend parts, and pages with tags are in frontend (for example), and module are in backend. In this case, use next settings for you application:
+
+```php
+…
+'components' => [
+        'urlManagerFrontend' => [
+            'class' => 'yii\web\urlManager',
+            'baseUrl' => 'http://you.app.frontend.url',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+        ],
+        'urlManagerBackend' => [
+            'class' => 'yii\web\urlManager',
+            'baseUrl' => 'http://you.app.backend.url',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+        ],
+]
+```
 
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
+In url `you.site/seotag` you may create the meta-tag for any page on you site. Just type in create form relative `url` of page, description, images urls and keywords and save it.
+
+In head of you layout file (e.g. `ffrontend/views/layouts/main.php`):
 
 ```php
-<?= \andrew72ru\seolinks\AutoloadExample::widget(); ?>```
+use andrew72ru\seotag\widgets\metaTags;
+
+metaTags::widget();
+```
+
+This widget renders a meta-tags:
+
+* description;
+* keywords;
+* og:description (same as description);
+* og:locale (ru_RU)
+* og:site_name (`Yii::$app->name`);
+* og:url (canonical page url);
+* og:type (website);
+* og:image;
+* twitter:card;
+* twitter:image;
+* twitter:site (NOT READY);
+* twitter:title (page title);
+* twitter:description (same as description)
