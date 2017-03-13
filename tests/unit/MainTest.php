@@ -36,7 +36,7 @@ class MainTest extends \Codeception\Test\Unit
         $module = Yii::$app->getModule('seotag');
         $this->tester->assertInstanceOf(\yii\web\UrlManager::className(), $module->urlManagerComponent);
         $this->tester->amOnPage($module->urlManagerComponent->createAbsoluteUrl('/seotag/main'));
-        $this->tester->see(Yii::t('app.seotag', 'No one page has a meta-tags'));
+        $this->tester->seeElement('div.box-body');
     }
 
     public function testWidgetIsLoadableAndHasModule()
