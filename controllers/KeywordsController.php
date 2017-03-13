@@ -8,9 +8,8 @@
 
 namespace andrew72ru\seotag\controllers;
 
-
-use common\modules\seotag\models\SeotagKeywords;
-use common\modules\seotag\models\SeotagKeywordsSearch;
+use andrew72ru\seotag\models\SeotagKeywords;
+use andrew72ru\seotag\models\SeotagKeywordsSearch;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

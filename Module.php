@@ -17,6 +17,8 @@ class Module extends \yii\base\Module
     public $controllerNamespace = 'andrew72ru\seotag\controllers';
     public $defaultRoute = 'main';
 
+    public $urlManager = 'yii\web\UrlManager';
+
     public function init()
     {
         parent::init();

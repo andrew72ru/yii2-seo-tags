@@ -8,18 +8,17 @@
 
 namespace andrew72ru\seotag\controllers;
 
-
-use common\models\Blog;
-use common\modules\pages\models\StaticPage;
-use common\modules\seotag\models\Seotag;
-use common\modules\seotag\models\SeotagSearch;
+//use common\models\Blog;
+//use common\modules\pages\models\StaticPage;
+use andrew72ru\seotag\models\Seotag;
+use andrew72ru\seotag\models\SeotagSearch;
 use yii\db\Query;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use Yii;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
+use Yii;
 
 /**
  * Основной контроллер для управления мета-тэгами
