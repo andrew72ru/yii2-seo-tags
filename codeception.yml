@@ -16,4 +16,14 @@ modules:
     config:
         Yii2:
             configFile: 'tests/_app/config/test.php'
-
+coverage:
+    enabled: true
+    include:
+      - commands/*
+      - controllers/*
+      - models/*
+      - traits/*
+      - views/*/*
+      - widgets/*
+      - Bootstrap.php
+      - Module.php
