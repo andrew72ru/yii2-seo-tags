@@ -28,6 +28,10 @@ return [
             'cookieValidationKey' => 'test',
             'enableCsrfValidation' => false,
         ],
+        'assetManager' => [
+            'class' => 'yii\web\AssetManager',
+            'basePath' => dirname(dirname(__DIR__)) . '/_envs/assets'
+        ],
     ],
     'params' => [],
 ];
