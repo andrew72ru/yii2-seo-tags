@@ -23,6 +23,8 @@ class Module extends \yii\base\Module
 
     public $urlManager = 'urlManager';
     public $twitterUsername = '';
+    public $imagePath = '@webroot/assets/share';
+    public $imageUrl = '/share';
 
     public function init()
     {

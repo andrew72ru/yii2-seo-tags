@@ -8,6 +8,7 @@
 
 namespace andrew72ru\seotag\models;
 
+use andrew72ru\seotag\traits\ModuleTrait;
 use Intervention\Image\ImageManager;
 use Yii;
 use yii\base\Model;
@@ -21,8 +22,8 @@ use yii\helpers\FileHelper;
  */
 class SeotagImage extends Model
 {
-    /** Директория для картинок */
-    const DIR = '@frontend/web/assets/share';
+    use ModuleTrait;
+
     /** Ширина большой картинки */
     const B_WIDTH = '1200';
     /**  Высота большой картинки */
@@ -34,13 +35,18 @@ class SeotagImage extends Model
     /** @var  ImageManager */
     private $manager;
 
+    private $dir;
+    private $url;
+
     public function init()
     {
         parent::init();
 
-        $dir = Yii::getAlias(self::DIR);
-        if(!is_dir($dir))
-            FileHelper::createDirectory($dir);
+        $this->dir = Yii::getAlias($this->module->imagePath);
+        if(!is_dir($this->dir))
+            FileHelper::createDirectory($this->dir);
+
+        $this->url = $this->module->imageUrl;
 
         $this->manager = new ImageManager(['driver' => 'imagick']);
     }
@@ -62,7 +68,7 @@ class SeotagImage extends Model
             return null;
         }
 
-        return Yii::$app->urlManagerFrontend->createAbsoluteUrl(['assets/share/'. $id . '/big.jpg']);
+        return $this->module->urlManagerComponent->createAbsoluteUrl([rtrim($this->url, '/') . '/' . $id . '/big.jpg']);
     }
 
     /**
@@ -81,7 +87,7 @@ class SeotagImage extends Model
             return null;
         }
 
-        return Yii::$app->urlManagerFrontend->createAbsoluteUrl(['/assets/share/' . $id . '/small.jpg']);
+        return $this->module->urlManagerComponent->createAbsoluteUrl([rtrim($this->url, '/') . '/' . $id . '/small.jpg']);
     }
 
     /**
@@ -91,7 +97,7 @@ class SeotagImage extends Model
      */
     private function createDir($id)
     {
-        $dir = Yii::getAlias(self::DIR . DIRECTORY_SEPARATOR . $id);
+        $dir = Yii::getAlias($this->dir . DIRECTORY_SEPARATOR . $id);
         if(!is_dir($dir))
             FileHelper::createDirectory($dir);
         return $dir;
