@@ -25,6 +25,11 @@ return [
                 'andrew72ru\seotag\commands'
             ],
             'migrationPath' => null,
+        ],
+        'fixture' => [
+            'class' => 'yii\faker\FixtureController',
+            'templatePath' => '@tests/fixtures/templates/fixtures',
+            'fixtureDataPath' => '@tests/_data'
         ]
     ]
 ];
