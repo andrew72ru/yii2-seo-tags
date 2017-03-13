@@ -18,8 +18,8 @@ modules:
             configFile: 'tests/_app/config/test.php'
 coverage:
     enabled: true
+    c3_url: 'http://localhost:8080/index-test.php'
     include:
-      - commands/*
       - controllers/*
       - models/*
       - traits/*

@@ -14,6 +14,9 @@ return [
     'modules' => [
         'seotag' => [
             'class' => 'andrew72ru\seotag\Module',
+            'twitterUsername' => '@twitterUser',
+            'imagePath' => '@tests/_envs/',
+            'imageUrl' => '/assets/share',
         ],
     ],
     'components' => [

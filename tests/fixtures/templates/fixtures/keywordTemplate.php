@@ -11,6 +11,5 @@
 $faker = Faker\Factory::create();
 
 return [
-    'url_id' => $index,
     'word' => $faker->word
 ];
