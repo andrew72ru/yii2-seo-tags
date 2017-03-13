@@ -121,44 +121,6 @@ class MainController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $out = [];
-        $pages = StaticPage::find()
-            ->limit(50)->asArray();
-        if(!is_null($q))
-        {
-            $pages->andwhere(['like', 'slug', $q]);
-            $pages->orWhere(['like', 'title', $q]);
-
-        }
-
-        foreach ($pages->all() as $page)
-        {
-            $out[] = [
-                'url' => $page['slug'],
-                'name' => $page['title'],
-                'value' => $page['title'] . ' (' . $page['slug'] . ')',
-                'route' => Yii::$app->urlManagerFrontend->createAbsoluteUrl([$page['slug']]),
-            ];
-        }
-
-        $blog = Blog::find()
-            ->limit(50)->asArray();
-
-        if(!is_null($q))
-        {
-            $blog->andFilterWhere(['like', 'slug', $q]);
-            $blog->orFilterWhere(['like', 'title', $q]);
-        }
-
-        foreach ($blog->all() as $blogItem)
-        {
-            $out[] = [
-                'url' => '/blog/' . $blogItem['slug'],
-                'name' => $blogItem['title'],
-                'value' => $blogItem['title'] . ' (/blog/' . $blogItem['slug'] . ')',
-                'route' => Yii::$app->urlManagerFrontend->createAbsoluteUrl(['/blog/' . $blogItem['slug']]),
-            ];
-        }
-
         return $out;
     }
 
