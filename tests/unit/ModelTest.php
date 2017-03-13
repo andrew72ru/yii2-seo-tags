@@ -1,6 +1,5 @@
 <?php
 
-
 use andrew72ru\seotag\models\Seotag;
 use andrew72ru\seotag\models\SeotagKeywords;
 
@@ -45,6 +44,13 @@ class ModelTest extends \Codeception\Test\Unit
         $this->tester->seeRecord(Seotag::className(), [
             'url' => $model->url
         ]);
+        $this->tester->assertNotNull($model->full_url);
+        $this->tester->seeRecord(Seotag::className(), [
+            'full_url' => $model->full_url
+        ]);
+
+        $this->tester->assertFileExists(Yii::getAlias('@tests/_envs/share/' . $model->id . '/big.jpg'));
+        $this->tester->assertFileExists(Yii::getAlias('@tests/_envs/share/' . $model->id . '/small.jpg'));
 
         $this->tester->assertTrue(is_array($model->keywords));
 
@@ -58,6 +64,8 @@ class ModelTest extends \Codeception\Test\Unit
     {
         /** @var Seotag $model */
         $model = Seotag::find()->orderBy(['id' => SORT_ASC])->one();
+        $model->afterSave(false, []);
+
         $this->tester->assertInstanceOf(Seotag::className(), $model);
         $this->tester->assertTrue(is_array($model->inputKeywords));
 

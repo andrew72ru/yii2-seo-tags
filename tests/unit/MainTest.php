@@ -1,6 +1,5 @@
 <?php
 
-
 use andrew72ru\seotag\Module;
 use andrew72ru\seotag\widgets\metaTags;
 
@@ -35,6 +34,10 @@ class MainTest extends \Codeception\Test\Unit
         /** @var Module $module */
         $module = Yii::$app->getModule('seotag');
         $this->tester->assertInstanceOf(\yii\web\UrlManager::className(), $module->urlManagerComponent);
+
+        $this->tester->assertNotNull($module->urlManagerComponent->createAbsoluteUrl('/'));
+        $this->tester->assertEquals(Yii::$app->urlManager->createAbsoluteUrl('/'), $module->urlManagerComponent->createAbsoluteUrl('/'));
+
         $this->tester->amOnPage($module->urlManagerComponent->createAbsoluteUrl('/seotag/main'));
         $this->tester->seeElement('div.box-body');
     }
