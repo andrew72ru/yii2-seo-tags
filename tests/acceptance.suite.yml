@@ -9,9 +9,9 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - WebDriver:
-            url: http://myroom.backend.local
-            browser: phantomjs
+#        - WebDriver:
+#            url: http://myroom.backend.local
+#            browser: phantomjs
         - Yii2:
             part: [init, orm, fixtures]
             cleanup: false
