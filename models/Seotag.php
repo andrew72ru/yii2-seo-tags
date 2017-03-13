@@ -2,6 +2,7 @@
 
 namespace andrew72ru\seotag\models;
 
+use andrew72ru\seotag\traits\ModuleTrait;
 use Yii;
 use yii\helpers\Html;
 
@@ -20,6 +21,7 @@ use yii\helpers\Html;
  */
 class Seotag extends \yii\db\ActiveRecord
 {
+    use ModuleTrait;
     public $inputKeywords;
 
     /**
@@ -86,7 +88,7 @@ class Seotag extends \yii\db\ActiveRecord
         }
 
         $this->updateAttributes([
-            'full_url' => Yii::$app->urlManagerFrontend->createAbsoluteUrl($this->url)
+            'full_url' => $this->module->urlManagerComponent->createAbsoluteUrl($this->url)
         ]);
 
         $imageModel = new SeotagImage();
@@ -117,7 +119,7 @@ class Seotag extends \yii\db\ActiveRecord
     {
         if($url !== null)
         {
-            $currentMeta = get_meta_tags(Yii::$app->urlManagerFrontend->createAbsoluteUrl($url));
+            $currentMeta = get_meta_tags($this->module->urlManagerComponent->createAbsoluteUrl($url));
 
             if(array_key_exists('description', $currentMeta))
                 $this->description = $currentMeta['description'];
@@ -134,7 +136,7 @@ class Seotag extends \yii\db\ActiveRecord
      */
     public function getTargetPage()
     {
-        $absoluteUrl = Yii::$app->urlManagerFrontend->createAbsoluteUrl($this->url);
+        $absoluteUrl = $this->module->urlManagerComponent->createAbsoluteUrl($this->url);
         return self::getPage($absoluteUrl);
     }
 
@@ -175,7 +177,7 @@ class Seotag extends \yii\db\ActiveRecord
     {
         $document = \phpQuery::newDocument($this->getTargetPage());
         $title = $document->find('title')->text();
-        return Html::a($title, Yii::$app->urlManagerFrontend->createAbsoluteUrl($this->url), ['target' => '_blank']);
+        return Html::a($title, $this->module->urlManagerComponent->createAbsoluteUrl($this->url), ['target' => '_blank']);
     }
 
     /**
