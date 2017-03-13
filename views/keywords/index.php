@@ -7,10 +7,10 @@
  *
  * @var \yii\web\View $this
  * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \common\modules\seotag\models\SeotagKeywordsSearch $searchModel
+ * @var \andrew72ru\seotag\models\SeotagKeywordsSearch $searchModel
  */
 
-use common\modules\seotag\models\SeotagKeywords;
+use andrew72ru\seotag\models\SeotagKeywords;
 use rmrevin\yii\fontawesome\FA;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;

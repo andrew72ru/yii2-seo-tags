@@ -6,7 +6,7 @@
  * Time: 13:40
  *
  * @var \yii\web\View $this
- * @var \common\modules\seotag\models\Seotag $model
+ * @var \andrew72ru\seotag\models\Seotag $model
  */
 
 $this->title = Yii::t('app.seotag', 'Create seotag for a new page');

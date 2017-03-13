@@ -6,10 +6,10 @@
  * Time: 13:46
  *
  * @var \yii\web\View $this
- * @var \common\modules\seotag\models\Seotag $model
+ * @var andrew72ru\seotag\models\Seotag $model
  */
 
-use common\modules\seotag\models\SeotagKeywords;
+use andrew72ru\seotag\models\SeotagKeywords;
 use kartik\select2\Select2;
 use kartik\typeahead\Typeahead;
 use rmrevin\yii\fontawesome\FA;
@@ -139,7 +139,6 @@ if(!$model->isNewRecord)
                     'data' => ['loadurl' => Url::to(['load-exist-data'])]
                 ],
                 'pluginEvents' => [
-//                    'typeahead:select' => 'function(e, s) { loadExistData(s, this); }',
                     'typeahead:close' => 'function() { simpleClose(this); }'
                 ],
                 'dataset' => [

@@ -6,7 +6,7 @@
  * Time: 14:10
  *
  * @var \yii\web\View $this
- * @var \common\modules\seotag\models\Seotag $model
+ * @var \andrew72ru\seotag\models\Seotag $model
  */
 
 use yii\helpers\Html;

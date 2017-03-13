@@ -8,7 +8,7 @@
  * @var \yii\web\View $this
  * @var string $src
  */
-use common\modules\seotag\models\Seotag;
+use andrew72ru\seotag\models\Seotag;
 use rmrevin\yii\fontawesome\FA;
 use yii\helpers\Html;
 

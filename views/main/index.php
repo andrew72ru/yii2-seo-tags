@@ -6,11 +6,11 @@
  * Time: 11:17
  *
  * @var \yii\web\View $this
- * @var \common\modules\seotag\models\SeotagSearch $searchModel
+ * @var \andrew72ru\seotag\models\SeotagSearch $searchModel
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 
-use common\modules\seotag\models\Seotag;
+use andrew72ru\seotag\models\Seotag;
 use rmrevin\yii\fontawesome\FA;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
