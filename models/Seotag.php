@@ -71,6 +71,9 @@ class Seotag extends \yii\db\ActiveRecord
         foreach ($keywordIds as $keyword_id)
             $this->unlink('keywords', SeotagKeywords::findOne($keyword_id), false);
 
+        if(!is_array($this->inputKeywords))
+            $this->inputKeywords = [];
+
         foreach ($this->inputKeywords as $inputKeyword)
         {
             $inputKeyword = trim($inputKeyword);
