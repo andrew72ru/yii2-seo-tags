@@ -8,8 +8,12 @@
 
 namespace andrew72ru\seotag;
 
+use yii\base\InvalidConfigException;
+use yii\web\UrlManager;
+
 /**
  * Class Module
+ * @property-read UrlManager urlManagerComponent
  * @package common\modules\seotag
  */
 class Module extends \yii\base\Module
@@ -17,10 +21,23 @@ class Module extends \yii\base\Module
     public $controllerNamespace = 'andrew72ru\seotag\controllers';
     public $defaultRoute = 'main';
 
-    public $urlManager = 'yii\web\UrlManager';
+    public $urlManager = 'urlManager';
+    public $twitterUsername = '';
 
     public function init()
     {
         parent::init();
+
+        if(!((\Yii::$app->{$this->urlManager}) instanceof UrlManager))
+            throw new InvalidConfigException('Module::urlManager must be instanse of yii\web\UrlManager');
+
+    }
+
+    /**
+     * @return \yii\web\UrlManager
+     */
+    public function getUrlManagerComponent()
+    {
+        return \Yii::$app->{$this->urlManager};
     }
 }
