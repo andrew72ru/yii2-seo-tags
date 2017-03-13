@@ -37,12 +37,13 @@ In you application config:
 'modules' => [
     'seotag' => [
         'class' => 'andrew72ru\seotag\Module',
-        'urlManager' => 'yii\web\UrlManager'
+        'urlManager' => 'urlManager',
+        'twitterUsername' => '@you_twitter_username'
     ]
 ]
 ```
 
-`UrlManager` uses if application use backend / frontend parts, and pages with tags are in frontend (for example), and module are in backend. In this case, use next settings for you application:
+`urlManager` uses if application use backend / frontend parts, and pages with tags are in frontend (for example), and module are in backend. In this case, use next settings for you application:
 
 ```php
 …
@@ -61,6 +62,8 @@ In you application config:
         ],
 ]
 ```
+
+Module calls `urlManager` as application component: `Yii::$app->{$module->urlManager}`, that is `Yii::$app->urlManagerFrontend`
 
 Usage
 -----
@@ -90,3 +93,4 @@ This widget renders a meta-tags:
 * twitter:site (NOT READY);
 * twitter:title (page title);
 * twitter:description (same as description)
+* link rel="canonical" with page address

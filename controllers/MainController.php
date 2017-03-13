@@ -8,10 +8,9 @@
 
 namespace andrew72ru\seotag\controllers;
 
-//use common\models\Blog;
-//use common\modules\pages\models\StaticPage;
 use andrew72ru\seotag\models\Seotag;
 use andrew72ru\seotag\models\SeotagSearch;
+use andrew72ru\seotag\traits\ModuleTrait;
 use yii\db\Query;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -28,6 +27,8 @@ use Yii;
  */
 class MainController extends Controller
 {
+    use ModuleTrait;
+
     public function behaviors()
     {
         return [
@@ -160,7 +161,7 @@ class MainController extends Controller
 
         if(Yii::$app->request->post('simple_url', null) !== null)
         {
-            $route = Yii::$app->urlManagerFrontend->createAbsoluteUrl(Yii::$app->request->post('simple_url'));
+            $route = $this->module->urlManagerComponent->createAbsoluteUrl(Yii::$app->request->post('simple_url'));
             if(Seotag::checkUrlExists($route))
                 return $this->getMetadataFromUrl($route);
         }
