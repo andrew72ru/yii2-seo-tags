@@ -9,18 +9,20 @@
 namespace andrew72ru\seotag\widgets;
 
 
-use common\models\CompanyData;
-use common\modules\seotag\models\Seotag;
+use andrew72ru\seotag\models\Seotag;
+use andrew72ru\seotag\traits\ModuleTrait;
 use yii\base\Widget;
-use yii\helpers\Url;
 use yii\helpers\Html;
 use Yii;
 
 class metaTags extends Widget
 {
+    use ModuleTrait;
+
     public function init()
     {
         parent::init();
+
         $this->findModel();
     }
 
@@ -39,18 +41,8 @@ class metaTags extends Widget
 
     private function defaultTags()
     {
-        /** @var CompanyData $company */
-        $company = CompanyData::find()->orderBy(['id' => SORT_DESC])->one();
-
-        $this->registerMetaTag(['name' => 'description', 'content' => $company->meta_description]);
-        $this->registerMetaTag(['name' => 'keywords', 'content' => $company->meta_keywords]);
-        $this->registerMetaTag(['name' => 'og:description', 'content' => $company->meta_description]);
         $this->registerMetaTag(['property' => 'og:locale', 'content' => 'ru_RU'], 'og:locale');
         $this->registerMetaTag(['property' => 'og:site_name', 'content' => Yii::$app->name], 'og:site_name');
-        $this->registerMetaTag([
-            'property' => 'og:image',
-            'content' => Yii::$app->urlManagerFrontend->createAbsoluteUrl(['/static/icon-256.png'])
-        ]);
         $this->registerMetaTag(['property' => 'og:url', 'content' => Yii::$app->request->absoluteUrl]);
         $this->registerMetaTag(['property' => 'og:type', 'content' => 'website'], 'og:type');
 
@@ -58,10 +50,7 @@ class metaTags extends Widget
         $this->registerMetaTag(['property' => 'og:image:height', 'content' => '256'], 'og:image:height');
 
         $this->registerMetaTag(['property' => 'twitter:card', 'content' => 'summary'], 'twitter:card');
-        $this->registerMetaTag(['property' => 'twitter:site', 'content' => '@myroom72'], 'twitter:site');
         $this->registerMetaTag(['property' => 'twitter:title', 'content' => $this->getView()->title], 'twitter:title');
-        $this->registerMetaTag(['property' => 'twitter:description', 'content' => Html::decode($company->meta_description)], 'twitter:description');
-        $this->registerMetaTag(['property' => 'twitter:image', 'content' => Yii::$app->urlManagerFrontend->createAbsoluteUrl(['/static/icon-150.jpg'])], 'twitter:image');
 
         $this->getView()->registerLinkTag(['rel' => 'canonical', 'href' => Yii::$app->request->absoluteUrl]);
     }
@@ -89,7 +78,9 @@ class metaTags extends Widget
             $this->registerMetaTag(['property' => 'twitter:card', 'content' => 'summary'], 'twitter:card');
         }
 
-        $this->registerMetaTag(['property' => 'twitter:site', 'content' => '@myroom72'], 'twitter:site');
+        if(!empty($this->module->twitterUsername))
+            $this->registerMetaTag(['property' => 'twitter:site', 'content' => $this->module->twitterUsername], 'twitter:site');
+
         $this->registerMetaTag(['property' => 'twitter:title', 'content' => $this->getView()->title], 'twitter:title');
         $this->registerMetaTag(['property' => 'twitter:description', 'content' => Html::decode($model->description)], 'twitter:description');
 
