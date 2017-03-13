@@ -7,6 +7,12 @@ return [
         '@andrew72ru/seotag' => dirname(dirname(dirname(__DIR__))),
         '@tests' => dirname(dirname(__DIR__)),
     ],
+    'bootstrap' => ['andrew72ru\seotag\Bootstrap'],
+    'modules' => [
+        'seotag' => [
+            'class' => 'andrew72ru\seotag\Module',
+        ],
+    ],
     'components' => [
         'log'   => null,
         'cache' => null,

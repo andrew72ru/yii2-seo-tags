@@ -15,7 +15,7 @@ class Bootstrap implements BootstrapInterface
 {
     public function bootstrap($app)
     {
-        if($app->hasModule('seotag') && ($module = $app->getModule('seotag') instanceof Module))
+        if($app->hasModule('seotag') && (($module = $app->getModule('seotag')) instanceof Module))
         {
             if (!isset($app->get('i18n')->translations['app.seotag*'])) {
                 $app->get('i18n')->translations['app.seotag*'] = [

@@ -2,7 +2,7 @@
 
 $db = [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=seotag_test',
+    'dsn' => 'mysql:unix_socket=/opt/local/var/run/mysql56/mysqld.sock;dbname=seotag_test',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',
