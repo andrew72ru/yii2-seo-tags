@@ -6,6 +6,7 @@ class_name: UnitTester
 modules:
     enabled:
         - Asserts
+        - Filesystem
         - \Helper\Unit
         - Yii2:
               parts: [init, fixtures]

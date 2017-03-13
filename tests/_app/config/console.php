@@ -11,6 +11,8 @@ return [
     'modules' => [
         'seotag' => [
             'class' => 'andrew72ru\seotag\Module',
+            'imagePath' => '@tests/_envs/share',
+            'imageUrl' => '/share',
         ],
     ],
     'components' => [

@@ -15,8 +15,8 @@ return [
         'seotag' => [
             'class' => 'andrew72ru\seotag\Module',
             'twitterUsername' => '@twitterUser',
-            'imagePath' => '@tests/_envs/',
-            'imageUrl' => '/assets/share',
+            'imagePath' => '@tests/_envs/share',
+            'imageUrl' => '/share',
         ],
     ],
     'components' => [
@@ -26,6 +26,7 @@ return [
         ],
         'urlManager' => [
             'showScriptName' => true,
+            'baseUrl' => 'http://localhost:8080/'
         ],
         'request' => [
             'cookieValidationKey' => 'test',
