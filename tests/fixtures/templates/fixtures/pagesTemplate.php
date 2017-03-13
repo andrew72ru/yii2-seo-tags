@@ -11,9 +11,8 @@
 $faker = Faker\Factory::create();
 
 return [
-    'url' => "page{$index}",
-    'small_pict' => "small_picture{$index}",
-    'large_pict' => "large_picture{$index}",
-    'keywords_id' => $faker->randomDigit,
+    'url' => "/",
+    'small_pict' => $faker->url,
+    'large_pict' => $faker->url,
     'description' => $faker->sentence(16),
 ];
