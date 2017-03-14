@@ -46,7 +46,7 @@ class metaTags extends Widget
         {
             try {
                 $sourceUrl = parse_url($this->searchUrl);
-                $this->absoluteUrl = $sourceUrl['scheme'] . '://' . $sourceUrl['host'] . ($sourceUrl['port'] !== 80 ? $sourceUrl['port'] : '') . $sourceUrl['path'];
+                $this->absoluteUrl = $sourceUrl['scheme'] . '://' . $sourceUrl['host'] . ($sourceUrl['port'] !== 80 ? ':' . $sourceUrl['port'] : '') . $sourceUrl['path'];
             } catch (\Exception $e) {}
         }
         if($this->absoluteUrl !== null)
