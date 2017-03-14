@@ -72,7 +72,7 @@ class SeotagImage extends Model
             return null;
         }
 
-        return $this->module->urlManagerComponent->createAbsoluteUrl([rtrim($this->url, '/') . '/' . $id . '/big.jpg']);
+        return $this->retUrl($id, 'big.jpg');
     }
 
     /**
@@ -92,7 +92,13 @@ class SeotagImage extends Model
             return null;
         }
 
-        return $this->module->urlManagerComponent->createAbsoluteUrl([rtrim($this->url, '/') . '/' . $id . '/small.jpg']);
+        return $this->retUrl($id, 'small.jpg');
+    }
+
+    private function retUrl($id, $pict)
+    {
+        $imageUrl = $this->module->imageUrl;
+        return $this->module->urlManagerComponent->createAbsoluteUrl($imageUrl . '/' . $id . '/' . $pict);
     }
 
     /**

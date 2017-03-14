@@ -19,6 +19,10 @@ class metaTags extends Widget
 {
     use ModuleTrait;
 
+    public $searchUrl = null;
+
+    private $absoluteUrl;
+
     public function init()
     {
         parent::init();
@@ -28,11 +32,29 @@ class metaTags extends Widget
 
     private function findModel()
     {
-        $sourceUrl = parse_url(Yii::$app->request->absoluteUrl);
-        $url = $sourceUrl['scheme'] . '://' . $sourceUrl['host'] . $sourceUrl['path'];
+        $model = null;
+        $this->absoluteUrl = null;
 
-        /** @var Seotag $model */
-        $model = Seotag::find()->where(['like', 'full_url', $url])->one();
+        if($this->searchUrl === null)
+        {
+            try {
+                $this->searchUrl = Yii::$app->getRequest()->getAbsoluteUrl();
+            } catch (\Exception $e) {}
+        }
+
+        if($this->searchUrl !== null)
+        {
+            try {
+                $sourceUrl = parse_url($this->searchUrl);
+                $this->absoluteUrl = $sourceUrl['scheme'] . '://' . $sourceUrl['host'] . ($sourceUrl['port'] !== 80 ? $sourceUrl['port'] : '') . $sourceUrl['path'];
+            } catch (\Exception $e) {}
+        }
+        if($this->absoluteUrl !== null)
+        {
+            /** @var Seotag $model */
+            $model = Seotag::find()->where(['like', 'full_url', $this->absoluteUrl])->one();
+        }
+
         if(empty($model))
             $this->defaultTags();
         else
@@ -43,7 +65,7 @@ class metaTags extends Widget
     {
         $this->registerMetaTag(['property' => 'og:locale', 'content' => 'ru_RU'], 'og:locale');
         $this->registerMetaTag(['property' => 'og:site_name', 'content' => Yii::$app->name], 'og:site_name');
-        $this->registerMetaTag(['property' => 'og:url', 'content' => Yii::$app->request->absoluteUrl]);
+        $this->registerMetaTag(['property' => 'og:url', 'content' => $this->absoluteUrl]);
         $this->registerMetaTag(['property' => 'og:type', 'content' => 'website'], 'og:type');
 
         $this->registerMetaTag(['property' => 'og:image:width', 'content' => '256'], 'og:image:width');
@@ -52,7 +74,7 @@ class metaTags extends Widget
         $this->registerMetaTag(['property' => 'twitter:card', 'content' => 'summary'], 'twitter:card');
         $this->registerMetaTag(['property' => 'twitter:title', 'content' => $this->getView()->title], 'twitter:title');
 
-        $this->getView()->registerLinkTag(['rel' => 'canonical', 'href' => Yii::$app->request->absoluteUrl]);
+        $this->getView()->registerLinkTag(['rel' => 'canonical', 'href' => $this->absoluteUrl]);
     }
 
     private function customTags(Seotag $model)
