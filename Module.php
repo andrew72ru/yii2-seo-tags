@@ -45,8 +45,8 @@ class Module extends \yii\base\Module
     {
         $urlManager = new $this->urlManager([
             'baseUrl' => $this->baseUrl,
-            'enablePrettyUrl' => YII_TEST ? false : \Yii::$app->urlManager->enablePrettyUrl,
-            'showScriptName' => YII_TEST ? false : \Yii::$app->urlManager->enablePrettyUrl,
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
             'rules' => \Yii::$app->urlManager->rules,
         ]);
         return $urlManager;
