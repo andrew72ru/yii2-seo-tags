@@ -88,7 +88,7 @@ class Seotag extends \yii\db\ActiveRecord
         }
 
         $this->updateAttributes([
-            'full_url' => $this->module->urlManagerComponent->createAbsoluteUrl($this->url)
+            'full_url' => $this->module->urlManagerComponent->createAbsoluteUrl([$this->url])
         ]);
 
         $imageModel = new SeotagImage();
