@@ -26,7 +26,9 @@ return [
             'useFileTransport' => true,
         ],
         'urlManager' => [
-            'showScriptName' => true,
+            'showScriptName' => false,
+            'enablePrettyUrl' => true,
+            'baseUrl' => 'http://localhost:8080'
         ],
         'request' => [
             'cookieValidationKey' => 'test',

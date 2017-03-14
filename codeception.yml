@@ -25,5 +25,4 @@ coverage:
       - traits/*
       - views/*/*
       - widgets/*
-      - Bootstrap.php
       - Module.php
