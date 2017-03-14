@@ -98,7 +98,7 @@ class SeotagImage extends Model
     private function retUrl($id, $pict)
     {
         $imageUrl = $this->module->imageUrl;
-        return $this->module->urlManagerComponent->createAbsoluteUrl($imageUrl . '/' . $id . '/' . $pict);
+        return $this->module->urlManagerComponent->createAbsoluteUrl([$imageUrl . '/' . $id . '/' . $pict]);
     }
 
     /**
