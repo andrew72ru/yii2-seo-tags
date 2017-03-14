@@ -7,6 +7,21 @@ Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
+Add to you `composer.json`
+
+```json
+{
+  …
+  "repositories": [
+    {
+      "type": "git",
+      "url": "file:///Users/andrew/Sites/yii2-seo-tags"
+    }
+  ],
+  …
+}
+```
+
 Either run
 
 ```
@@ -20,6 +35,21 @@ or add
 ```
 
 to the require section of your `composer.json` file.
+
+Database migration class is `andrew72ru\seotag\commands\m170301_051438_seotag.php`. Add to you console application config
+
+```php
+'controllerMap' => [
+    'migrate' => [
+        'class' => 'yii\console\controllers\MigrateController',
+        'migrationNamespaces' => [
+            'andrew72ru\seotag\commands',
+        ],
+        'migrationPath' => null,
+    ],
+]
+
+```
 
 Settings
 --------
@@ -45,6 +75,62 @@ In you application config:
 - `twitterUsername` uses in meta-tag `twitter:site`. For example, with module `twitterUsername` setting is `@you_twitter_username` meta-tag will be the `<meta property="twitter:site" content="@you_twitter_username">`
 - `imagePath`, alias, where module will save a pictures for `og:image` meta-tag
 - `imageUrl` – relative url to image directory. E.g. with `'imageUrl' => '/share'` and 'baseUrl' => 'http://you.site.url', url will be a `http://you.site.url/share/<model_id>/big.jpg`
+
+TIP
+---
+
+Add `'controllerMap' => ['main' => '\your\own\MainController']` to module config and rewrite `MainController.php::actionPagesList` function to load pages data.
+
+### Example function
+
+```php
+    public function actionPagesList($q = null)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $out = [];
+        $pages = StaticPage::find()
+            ->limit(50)->asArray();
+        if(!is_null($q))
+        {
+            $pages->andwhere(['like', 'slug', $q]);
+            $pages->orWhere(['like', 'title', $q]);
+
+        }
+
+        foreach ($pages->all() as $page)
+        {
+            $out[] = [
+                'url' => $page['slug'],
+                'name' => $page['title'],
+                'value' => $page['title'] . ' (' . $page['slug'] . ')',
+                'route' => Yii::$app->urlManager->createAbsoluteUrl([$page['slug']]),
+            ];
+        }
+
+        $blog = Blog::find()
+            ->limit(50)->asArray();
+
+        if(!is_null($q))
+        {
+            $blog->andFilterWhere(['like', 'slug', $q]);
+            $blog->orFilterWhere(['like', 'title', $q]);
+        }
+
+        foreach ($blog->all() as $blogItem)
+        {
+            $out[] = [
+                'url' => '/blog/' . $blogItem['slug'],
+                'name' => $blogItem['title'],
+                'value' => $blogItem['title'] . ' (/blog/' . $blogItem['slug'] . ')',
+                'route' => Yii::$app->urlManager->createAbsoluteUrl(['/blog/' . $blogItem['slug']]),
+            ];
+        }
+
+        return $out;
+    }
+
+```
 
 Usage
 -----
