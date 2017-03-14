@@ -2,10 +2,6 @@ SEO tags module
 ===============
 Adds a description, keywords, etc. tags to site page by url
 
-> ATTENTION 
->
-> Module is in alfa-version, some classes are not exists! Do not use as is!
-
 Installation
 ------------
 
@@ -25,8 +21,6 @@ or add
 
 to the require section of your `composer.json` file.
 
-**!!! will not work, moodule is not published in packagist**
-
 Settings
 --------
 
@@ -37,33 +31,20 @@ In you application config:
 'modules' => [
     'seotag' => [
         'class' => 'andrew72ru\seotag\Module',
-        'urlManager' => 'urlManager',
-        'twitterUsername' => '@you_twitter_username'
+        'urlManager' => '\yii\web\UrlManager',
+        'baseUrl' => 'http://you.site.url',
+        'twitterUsername' => '@you_twitter_username',
+        'imagePath' => '@webroot/assets/share',
+        'imageUrl' => '/share'
     ]
 ]
 ```
 
-`urlManager` uses if application use backend / frontend parts, and pages with tags are in frontend (for example), and module are in backend. In this case, use next settings for you application:
-
-```php
-…
-'components' => [
-        'urlManagerFrontend' => [
-            'class' => 'yii\web\urlManager',
-            'baseUrl' => 'http://you.app.frontend.url',
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-        ],
-        'urlManagerBackend' => [
-            'class' => 'yii\web\urlManager',
-            'baseUrl' => 'http://you.app.backend.url',
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-        ],
-]
-```
-
-Module calls `urlManager` as application component: `Yii::$app->{$module->urlManager}`, that is `Yii::$app->urlManagerFrontend`
+- `urlManager` creates a addresses for target pages and pictures.
+- `baseUrl` need to create `url` to frontend from backend, for example
+- `twitterUsername` uses in meta-tag `twitter:site`. For example, with module `twitterUsername` setting is `@you_twitter_username` meta-tag will be the `<meta property="twitter:site" content="@you_twitter_username">`
+- `imagePath`, alias, where module will save a pictures for `og:image` meta-tag
+- `imageUrl` – relative url to image directory. E.g. with `'imageUrl' => '/share'` and 'baseUrl' => 'http://you.site.url', url will be a `http://you.site.url/share/<model_id>/big.jpg`
 
 Usage
 -----
@@ -94,3 +75,12 @@ This widget renders a meta-tags:
 * twitter:title (page title);
 * twitter:description (same as description)
 * link rel="canonical" with page address
+
+Tests
+-----
+
+- clone this repository,
+- `cd` to cloned folder,
+- type `composer install`,
+- build the tests with `vendor/bin/codecept build`
+- run tests with `vendor/bin/codecept run`
