@@ -10,7 +10,7 @@ class_name: AcceptanceTester
 modules:
     enabled:
         - WebDriver:
-            url: http://localhost:8080/
+            url: 'http://localhost:8080'
             browser: phantomjs
         - Yii2:
             part: [init, orm, fixtures]

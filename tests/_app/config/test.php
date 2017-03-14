@@ -17,6 +17,7 @@ return [
             'twitterUsername' => '@twitterUser',
             'imagePath' => '@tests/_envs/share',
             'imageUrl' => '/share',
+            'baseUrl' => 'http://localhost:8080'
         ],
     ],
     'components' => [
@@ -26,7 +27,6 @@ return [
         ],
         'urlManager' => [
             'showScriptName' => true,
-            'baseUrl' => 'http://localhost:8080/'
         ],
         'request' => [
             'cookieValidationKey' => 'test',

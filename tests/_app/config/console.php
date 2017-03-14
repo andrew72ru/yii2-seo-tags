@@ -13,6 +13,7 @@ return [
             'class' => 'andrew72ru\seotag\Module',
             'imagePath' => '@tests/_envs/share',
             'imageUrl' => '/share',
+            'baseUrl' => 'http://localhost:8080'
         ],
     ],
     'components' => [

@@ -17,8 +17,8 @@ $urlManager->setScriptUrl('/index-test.php');
 $urlManager->setHostInfo('http://localhost:8080');
 
 return [
-    'url' => "/",
-    'small_pict' => \yii\helpers\Url::to('/17.jpg', true),
-    'large_pict' => \yii\helpers\Url::to('/17.jpg', true),
+    'url' => "index-test.php?r=site%2Findex",
+    'small_pict' => 'http://localhost:8080/17.jpg',
+    'large_pict' => 'http://localhost:8080/17.jpg',
     'description' => $faker->sentence(16),
 ];

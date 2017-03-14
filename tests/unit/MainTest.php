@@ -35,8 +35,8 @@ class MainTest extends \Codeception\Test\Unit
         $module = Yii::$app->getModule('seotag');
         $this->tester->assertInstanceOf(\yii\web\UrlManager::className(), $module->urlManagerComponent);
 
-        $this->tester->assertNotNull($module->urlManagerComponent->createAbsoluteUrl('/'));
-        $this->tester->assertEquals(Yii::$app->urlManager->createAbsoluteUrl('/'), $module->urlManagerComponent->createAbsoluteUrl('/'));
+        $this->tester->assertNotNull($module->urlManagerComponent->createAbsoluteUrl('/site/index'));
+        $this->tester->assertEquals(Yii::$app->urlManager->createAbsoluteUrl('/site/index'), $module->urlManagerComponent->createAbsoluteUrl('/site/index'));
 
         $this->tester->amOnPage($module->urlManagerComponent->createAbsoluteUrl('/seotag/main'));
         $this->tester->seeElement('div.box-body');
@@ -44,8 +44,11 @@ class MainTest extends \Codeception\Test\Unit
 
     public function testWidgetIsLoadableAndHasModule()
     {
+        /** @var Module $module */
+        $module = Yii::$app->getModule('seotag');
+
         $this->tester->wantTo('Test widget');
-        $widget = new metaTags();
+        $widget = new metaTags(['searchUrl' => $module->urlManagerComponent->createAbsoluteUrl(['/site/index'])]);
         $this->tester->assertInstanceOf('andrew72ru\seotag\widgets\metaTags', $widget);
         $this->tester->assertInstanceOf(Module::className(), $widget->module);
     }
