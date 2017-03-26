@@ -9,10 +9,11 @@
 namespace andrew72ru\seotag\models;
 
 use andrew72ru\seotag\traits\ModuleTrait;
+use Intervention\Image\ImageManagerStatic as StaticImage;
 use Intervention\Image\ImageManager;
-use Yii;
 use yii\base\Model;
 use yii\helpers\FileHelper;
+use Yii;
 
 /**
  * Манипуляции с картинками
@@ -106,5 +107,35 @@ class SeotagImage extends Model
         if(!is_dir($dir))
             FileHelper::createDirectory($dir);
         return $dir;
+    }
+
+    /**
+     * Возвращает base64-кодированную строку картинки
+     *
+     * @param int $id
+     * @param string $name
+     * @param int $w
+     * @return \Intervention\Image\Image|null|string
+     */
+    public static function imagePreview($id, $name = 'big.jpg', $w = 150)
+    {
+        /** @var \andrew72ru\seotag\Module|\yii\base\Module $module */
+        $module = Yii::$app->getModule('seotag');
+        $model = Seotag::findOne($id);
+        if($model === null)
+            return null;
+
+        $dir = Yii::getAlias($module->imagePath . DIRECTORY_SEPARATOR . $model->id);
+        if(!is_file($dir . DIRECTORY_SEPARATOR . $name))
+            return null;
+
+        $file = $dir . DIRECTORY_SEPARATOR . $name;
+        $h = (int) ($w / (self::B_WIDTH / self::B_HEIGHT));
+        if($name !== 'big.jpg')
+        {
+            $h = (int)($w / (self::S_WIDTH / self::S_HEIGHT));
+        }
+
+        return StaticImage::make($file)->fit($w, $h)->encode('data-url');
     }
 }

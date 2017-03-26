@@ -7,5 +7,6 @@
  */
 
 return [
-    'password' => '111',
+    'dsn' => 'mysql:unix_socket=/tmp/mysql.sock;dbname=seotag_test',
+    'password' => 'really',
 ];

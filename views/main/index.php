@@ -11,6 +11,7 @@
  */
 
 use andrew72ru\seotag\models\Seotag;
+use andrew72ru\seotag\models\SeotagImage;
 use rmrevin\yii\fontawesome\FA;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
@@ -44,15 +45,58 @@ $this->params['page-subHeader'] = Html::a(FA::i(FA::_PLUS_CIRCLE, [
                     },
                     'format' => 'url',
                 ],
-                'small_pict',
-                'large_pict',
+                [
+                    'attribute' => 'small_pict',
+                    'value' => function(Seotag $model)
+                    {
+                        $image = SeotagImage::imagePreview($model->id, 'small.jpg');
+                        if($image === null)
+                            return null;
+
+                        return Html::img($image, [
+                            'class' => 'img-thumbnail',
+                            'alt' => $model->small_pict,
+                            'title' => $model->small_pict,
+                        ]);
+                    },
+                    'format' => 'raw',
+                    'contentOptions' => ['width' => '150px']
+                ],
+                [
+                    'attribute' => 'large_pict',
+                    'value' => function(Seotag $model)
+                    {
+                        $image = SeotagImage::imagePreview($model->id, 'big.jpg');
+                        if($image === null)
+                            return null;
+
+                        return Html::img($image, [
+                            'class' => 'img-thumbnail',
+                            'alt' => $model->small_pict,
+                            'title' => $model->small_pict,
+                        ]);
+                    },
+                    'format' => 'raw',
+                    'contentOptions' => ['width' => '180px']
+                ],
                 'description:ntext',
                 [
                     'attribute' => 'keywords',
                     'value' => function(Seotag $model)
                     {
-                        return implode(', ', $model->inputKeywords);
+                        $html = [];
+                        if (empty($model->inputKeywords))
+                            return null;
+
+                        foreach ($model->inputKeywords as $inputKeyword)
+                        {
+                            $html[] = Html::tag('span', $inputKeyword, [
+                                'class' => 'label label-default'
+                            ]);
+                        }
+                        return implode("\n", $html);
                     },
+                    'format' => 'html'
                 ],
                 [
                     'class' => ActionColumn::className(),
