@@ -4,6 +4,7 @@
   "type": "yii2-extension",
   "keywords": ["yii2","extension","seo"],
   "license": "MIT",
+  "minimum-stability": "stable",
   "authors": [
     {
       "name": "andrew72ru",
@@ -11,20 +12,24 @@
     }
   ],
   "require": {
-    "php": ">=5.5.0",
-    "yiisoft/yii2": ">=2.0.6",
+    "php": ">=7.0",
+    "yiisoft/yii2": ">=2.0.10",
     "kartik-v/yii2-widget-typeahead": "^1.0",
-    "kartik-v/yii2-widget-select2": "2.0.x-dev",
+    "kartik-v/yii2-widget-select2": "^2",
     "rmrevin/yii2-fontawesome": "~2.12",
     "intervention/image": "^2.3",
     "ext-imagick": "*",
     "electrolinux/phpquery": "^0.9.6"
   },
   "require-dev": {
-    "codeception/codeception": "*",
     "yiisoft/yii2-debug": "*",
     "yiisoft/yii2-gii": "*",
-    "yiisoft/yii2-faker": "*"
+    "yiisoft/yii2-faker": "*",
+
+    "codeception/codeception": "^2.2",
+    "codeception/c3": "*",
+    "codeception/specify": "*",
+    "codeception/verify": "*"
   },
   "autoload": {
     "psr-4": {
