@@ -30,4 +30,10 @@ class UrlWalkCest
         $I->amOnPage(Url::toRoute(['/seotag/keywords']));
         $I->seeElement('div.box-body');
     }
+
+    public function tryToIndexUrl(FunctionalTester $I)
+    {
+        $I->amOnPage(Url::toRoute(['/site/index']));
+        $I->see('Index');
+    }
 }

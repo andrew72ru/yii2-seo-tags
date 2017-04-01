@@ -35,10 +35,13 @@ class MainTest extends \Codeception\Test\Unit
         $module = Yii::$app->getModule('seotag');
         $this->tester->assertInstanceOf(\yii\web\UrlManager::className(), $module->urlManagerComponent);
 
-        $this->tester->assertNotNull($module->urlManagerComponent->createAbsoluteUrl('/'));
-        $this->tester->assertEquals(Yii::$app->urlManager->createAbsoluteUrl('/'), $module->urlManagerComponent->createAbsoluteUrl('/'));
+        $this->tester->assertNotNull($module->urlManagerComponent->createAbsoluteUrl(['/site/index']));
 
-        $this->tester->amOnPage($module->urlManagerComponent->createAbsoluteUrl('/seotag/main'));
+        Yii::$app->urlManager->showScriptName = false;
+        Yii::$app->urlManager->enablePrettyUrl = true;
+        $this->tester->assertEquals(Yii::$app->urlManager->createAbsoluteUrl(['/site/index']), $module->urlManagerComponent->createAbsoluteUrl(['/site/index']));
+
+        $this->tester->amOnPage($module->urlManagerComponent->createAbsoluteUrl(['/seotag/main']));
         $this->tester->seeElement('div.box-body');
     }
 
@@ -48,5 +51,11 @@ class MainTest extends \Codeception\Test\Unit
         $widget = new metaTags();
         $this->tester->assertInstanceOf('andrew72ru\seotag\widgets\metaTags', $widget);
         $this->tester->assertInstanceOf(Module::className(), $widget->module);
+    }
+
+    public function testTranslationsIsSet()
+    {
+        $this->tester->assertNotEmpty(Yii::$app->get('i18n')->translations);
+        $this->tester->assertArrayHasKey('app.seotag*', Yii::$app->get('i18n')->translations);
     }
 }

@@ -21,7 +21,8 @@ class Module extends \yii\base\Module
     public $controllerNamespace = 'andrew72ru\seotag\controllers';
     public $defaultRoute = 'main';
 
-    public $urlManager = 'urlManager';
+    public $urlManager = '\yii\web\UrlManager';
+    public $baseUrl = null;
     public $twitterUsername = '';
     public $imagePath = '@webroot/assets/share';
     public $imageUrl = '/share';
@@ -30,9 +31,11 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        if(!((\Yii::$app->{$this->urlManager}) instanceof UrlManager))
+        if(!class_exists($this->urlManager) || !((new $this->urlManager) instanceof UrlManager))
             throw new InvalidConfigException('Module::urlManager must be instanse of yii\web\UrlManager');
 
+        if($this->baseUrl === null)
+            $this->baseUrl = \Yii::$app->request->hostInfo;
     }
 
     /**
@@ -40,6 +43,12 @@ class Module extends \yii\base\Module
      */
     public function getUrlManagerComponent()
     {
-        return \Yii::$app->{$this->urlManager};
+        $urlManager = new $this->urlManager([
+            'baseUrl' => $this->baseUrl,
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => \Yii::$app->urlManager->rules,
+        ]);
+        return $urlManager;
     }
 }

@@ -4,7 +4,10 @@
  * @var \yii\web\View $this
  */
 
+use andrew72ru\seotag\widgets\metaTags;
 use yii\helpers\Html;
+
+metaTags::widget();
 
 ?>
 
@@ -19,6 +22,10 @@ use yii\helpers\Html;
     <?php $this->head() ?>
 </head>
 <body>
+<?php $this->beginBody() ?>
 <?= $content; ?>
+<?php $this->endBody() ?>
 </body>
+</html>
+<?php $this->endPage() ?>
 

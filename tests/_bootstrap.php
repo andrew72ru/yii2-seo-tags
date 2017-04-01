@@ -1,7 +1,8 @@
 <?php
 // This is global bootstrap for autoloading
 define('YII_ENV', 'test');
-defined('YII_DEBUG') or define('YII_DEBUG', true);
+//defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_TEST') or define('YII_TEST', true);
 
 // Search for autoload, since performance is irrelevant and usability isn't!
 $dir = __DIR__;
