@@ -60,6 +60,27 @@ class ShowViewsCest
         $I->seeInField(['name' => Html::getInputName($model, 'url')], $model->url);
     }
 
+    public function tryToDeleteCreatedModel(FunctionalTester $I)
+    {
+        $exist = $I->grabFixture('pages', 0);
+        $I->assertArrayHasKey( 'url', $exist);
+        $model = new Seotag($exist);
+        $I->assertInstanceOf(Seotag::className(), $model);
+
+        $I->seeRecord($model::className(), [
+            'description' => $model->description
+        ]);
+
+        $I->amOnPage(Url::to(['/seotag/main']));
+        $deleteLink = Locator::href(Url::to(['/seotag/main/delete', 'id' => $model->id]));
+        $I->click($deleteLink);
+
+        $I->sendAjaxPostRequest(Url::to(['/seotag/main/delete', 'id' => $model->id]), []);
+        $I->dontSeeRecord($model::className(), [
+            'description' => $model->description
+        ]);
+    }
+
     public function tryToCreateSeotagPage(FunctionalTester $I)
     {
         $model = new Seotag();
@@ -70,7 +91,7 @@ class ShowViewsCest
         $I->seeElement('form', ['id' => 'seo-tag-form']);
         $I->submitForm('#seo-tag-form', [
             $model->formName() => [
-                'url' => '/',
+                'url' => '/some-url',
                 'description' => 'Test description',
                 'small_pict' => 'http://localhost:8080/17.jpg',
                 'large_pict' => 'http://localhost:8080/17.jpg',
@@ -80,47 +101,13 @@ class ShowViewsCest
                 ]
             ]
         ]);
+        $I->dontSeeElement('.has-error');
 
         $I->seeRecord($model::className(), [
             'description' => 'Test description'
         ]);
         $I->seeRecord(SeotagKeywords::className(), [
             'word' => 'keyword1'
-        ]);
-    }
-
-    public function tryToDeleteCreatedModel(FunctionalTester $I)
-    {
-        /** @var Seotag $model */
-        $model = new Seotag([
-            'url' => '/',
-            'description' => 'Test description',
-            'small_pict' => 'http://localhost:8080/17.jpg',
-            'large_pict' => 'http://localhost:8080/17.jpg',
-            'inputKeywords' => [
-                'keyword1',
-                'keyword2',
-            ]
-        ]);
-        if(!$model->save())
-            throw new Exception('Cannot find model');
-
-        $I->seeRecord($model::className(), [
-            'description' => 'Test description'
-        ]);
-
-
-        $I->amOnPage(Url::to(['/seotag/main']));
-        $deleteLink = Locator::href(Url::to(['/seotag/main/delete', 'id' => $model->id]));
-        $I->click($deleteLink);
-
-        $I->seeRecord($model::className(), [
-            'description' => 'Test description'
-        ]);
-
-        $I->sendAjaxPostRequest(Url::to(['/seotag/main/delete', 'id' => $model->id]), []);
-        $I->dontSeeRecord($model::className(), [
-            'description' => 'Test description'
         ]);
     }
 

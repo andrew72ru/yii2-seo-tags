@@ -4,9 +4,9 @@
 use andrew72ru\seotag\models\Seotag;
 use andrew72ru\seotag\tests\fixtures\PagesFixture;
 use andrew72ru\seotag\tests\fixtures\TagsFixtire;
-use yii\helpers\Url;
+use Codeception\Util\Locator;
 
-class WidgetInLayoutCest
+class ViewMetaCest
 {
     public function _before(FunctionalTester $I)
     {
@@ -30,30 +30,17 @@ class WidgetInLayoutCest
         $model->save();
     }
 
-    public function _after(FunctionalTester $I)
+    public function tryToViewMetatagsOnMainPage(FunctionalTester $I)
     {
-    }
+        $fixture = $I->grabFixture('pages', 0);
+        $I->amOnPage($fixture['full_url']);
+        $I->see('Index');
 
-    public function tryToViewIndex(FunctionalTester $I)
-    {
-        $I->amOnPage(Url::toRoute(['/site/index']));
-    }
-
-    public function tryToLoadWidget(FunctionalTester $I)
-    {
-        $meta = $I->grabFixture('pages', 0);
-        $fullUrl = $meta['full_url'];
-
-        $I->seeRecord(Seotag::className(), [
-            'full_url' => $fullUrl
-        ]);
-
-        $I->amOnPage($fullUrl);
-
-        $I->seeElement('meta', [
-            'name' => 'description',
-            'content' => $meta['description']
-        ]);
-
+        $I->seeElement(Locator::find('meta', [
+            'name' => 'description'
+        ]));
+        $I->seeElement(Locator::find('meta', [
+            'name' => 'keywords'
+        ]));
     }
 }
