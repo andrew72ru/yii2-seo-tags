@@ -12,7 +12,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
+    "php": ">=5.5",
     "yiisoft/yii2": ">=2.0.10",
     "kartik-v/yii2-widget-typeahead": "^1.0",
     "kartik-v/yii2-widget-select2": "^2",

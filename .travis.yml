@@ -1,8 +1,7 @@
 language: php
 
 php:
-  - 7.0
-#  - hhvm
+  - 5.5
 
 branches:
   only:
@@ -17,9 +16,10 @@ install:
 #  - travis_retry composer update --dev --prefer-dist --no-interaction
 
 before_script:
-  - sudo apt-get update
-  - sudo apt-get -y --reinstall install php-imagick
-  - echo "extension = imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+#  - sudo apt-get update
+#  - sudo apt-get -y --reinstall install php-imagick
+#  - echo "extension = imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - sudo pecl -f imagick
   - mysql -e 'CREATE DATABASE IF NOT EXISTS seotag_test;'
   - composer update --prefer-dist --no-interaction
   - touch tests/_app/config/db.local.php
