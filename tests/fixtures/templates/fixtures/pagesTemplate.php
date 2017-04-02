@@ -17,7 +17,7 @@ $urlManager->setScriptUrl('/index-test.php');
 $urlManager->setHostInfo('http://localhost:8080');
 
 return [
-    'url' => "index-test.php?r=site%2Findex",
+    'url' => "/",
     'small_pict' => 'http://localhost:8080/17.jpg',
     'large_pict' => 'http://localhost:8080/17.jpg',
     'description' => $faker->sentence(16),
