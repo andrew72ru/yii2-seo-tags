@@ -21,11 +21,11 @@ before_script:
 #  - sudo apt-get -y --reinstall install php5-imagick
 #  - pecl install -f imagick
   - printf "\n" | pecl install imagick
-  - echo "extension = imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+#  - echo "extension = imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - mysql -e 'CREATE DATABASE IF NOT EXISTS seotag_test;'
   - composer update --prefer-dist --no-interaction
   - touch tests/_app/config/db.local.php
-  - echo "<?php return ['dsn' => 'mysql:host=127.0.0.1:3306;dbname=seotag_test','username' => 'root'];" > db.local.php
+  - echo "<?php return ['dsn' => 'mysql:host=127.0.0.1:3306;dbname=seotag_test','username' => 'root'];" > tests/_app/config/db.local.php
   - php tests/_app/yii.php migrate --interactive=0
   - vendor/bin/codecept build
 
