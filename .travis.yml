@@ -10,6 +10,8 @@ branches:
 services:
   - mysql
 
+
+
 install:
   - travis_retry composer self-update && composer --version
   - travis_retry composer global require "fxp/composer-asset-plugin:^1.2"
@@ -17,9 +19,9 @@ install:
 
 before_script:
 #  - sudo apt-get update
-#  - sudo apt-get -y --reinstall install php-imagick
+  - sudo apt-get -y --reinstall install php-imagick
 #  - echo "extension = imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - sudo pecl -f imagick
+#  - sudo pecl -f imagick
   - mysql -e 'CREATE DATABASE IF NOT EXISTS seotag_test;'
   - composer update --prefer-dist --no-interaction
   - touch tests/_app/config/db.local.php
