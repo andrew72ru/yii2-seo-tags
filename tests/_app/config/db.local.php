@@ -8,5 +8,6 @@
 
 return [
     'dsn' => 'mysql:unix_socket=/tmp/mysql.sock;dbname=seotag_test',
+    'username' => 'root',
     'password' => 'really',
 ];
