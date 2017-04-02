@@ -34,4 +34,4 @@ before_script:
   - php tests/_app/yii.php migrate --interactive=0
   - vendor/bin/codecept build
 
-script: vendor/bin/codecept run
+script: php vendor/bin/codecept run --coverage
