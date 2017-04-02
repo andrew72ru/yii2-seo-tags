@@ -29,7 +29,8 @@
     "codeception/codeception": "^2.2",
     "codeception/c3": "*",
     "codeception/specify": "*",
-    "codeception/verify": "*"
+    "codeception/verify": "*",
+    "codeclimate/php-test-reporter": "dev-master"
   },
   "autoload": {
     "psr-4": {
