@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/andrew72ru/yii2-seo-tags.svg?branch=master)](https://travis-ci.org/andrew72ru/yii2-seo-tags)
+
 SEO tags module
 ===============
 Adds a description, keywords, etc. tags to site page by url
