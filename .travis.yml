@@ -3,9 +3,9 @@ language: php
 php:
   - 5.5
 
-branches:
-  only:
-    - master
+#branches:
+#  only:
+#    - master
 
 services:
   - mysql
@@ -36,3 +36,10 @@ before_script:
 
 script:
   - php tests/_app/yii.php serve > /dev/null 2>&1 & php vendor/bin/codecept run --coverage --coverage-xml
+
+addons:
+  code_climate:
+    repo_token: ba1056a468f20b1f15285b9f09ad49ba8ba9cefe7d3612688fd56259d8613a06
+
+after_success:
+  - vendor/bin/test-reporter --coverage-report tests/_output/coverage.xml
