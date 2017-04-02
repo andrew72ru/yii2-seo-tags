@@ -25,7 +25,7 @@ before_script:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS seotag_test;'
   - composer update --prefer-dist --no-interaction
   - touch tests/_app/config/db.local.php
-  - echo "<?php return ['dsn' => 'mysql:host=localhost:3306;dbname=seotag_test','username' => 'root'];" > db.local.php
+  - echo "<?php return ['dsn' => 'mysql:host=127.0.0.1:3306;dbname=seotag_test','username' => 'root'];" > db.local.php
   - php tests/_app/yii.php migrate --interactive=0
   - vendor/bin/codecept build
 
