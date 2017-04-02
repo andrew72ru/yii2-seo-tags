@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/andrew72ru/yii2-seo-tags.svg?branch=master)](https://travis-ci.org/andrew72ru/yii2-seo-tags)
+[![Code Climate](https://codeclimate.com/github/andrew72ru/yii2-seo-tags/badges/gpa.svg)](https://codeclimate.com/github/andrew72ru/yii2-seo-tags)
+[![Test Coverage](https://codeclimate.com/github/andrew72ru/yii2-seo-tags/badges/coverage.svg)](https://codeclimate.com/github/andrew72ru/yii2-seo-tags/coverage)
+[![Issue Count](https://codeclimate.com/github/andrew72ru/yii2-seo-tags/badges/issue_count.svg)](https://codeclimate.com/github/andrew72ru/yii2-seo-tags)
 
 SEO tags module
 ===============
