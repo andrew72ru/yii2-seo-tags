@@ -32,7 +32,7 @@ before_script:
   - php tests/_app/yii.php fixture/generate pagesTemplate --count=1 --interactive=0
   - php tests/_app/yii.php fixture/generate keywordTemplate --count=16 --interactive=0
   - vendor/bin/codecept build
-  - php tests/_app/yii.php serve
+#  - php tests/_app/yii.php serve &
 
 script:
-  - php vendor/bin/codecept run --coverage
+  - php tests/_app/yii.php serve > /dev/null 2>&1 & php vendor/bin/codecept run --coverage --coverage-xml
