@@ -27,11 +27,12 @@ before_script:
   - touch tests/_app/config/db.local.php
   - echo "<?php return ['dsn' => 'mysql:host=127.0.0.1:3306;dbname=seotag_test','username' => 'root'];" > tests/_app/config/db.local.php
   - mkdir -p tests/_envs/assets
+  - mkdir runtime
   - php tests/_app/yii.php migrate --interactive=0
   - php tests/_app/yii.php fixture/generate pagesTemplate --count=1 --interactive=0
   - php tests/_app/yii.php fixture/generate keywordTemplate --count=16 --interactive=0
-#  - php tests/_app/yii.php fixture/generate-all --interactive=0
   - vendor/bin/codecept build
+  - php tests/_app/yii.php serve
 
 script:
   - php vendor/bin/codecept run --coverage

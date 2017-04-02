@@ -22,6 +22,14 @@ class ModelTest extends \Codeception\Test\Unit
                 'dataFile' => codecept_data_dir() . 'keywordTemplate.php'
             ]
         ]);
+
+        /** @var Seotag $model */
+        $model = Seotag::find()->orderBy(['id' => SORT_ASC])->one();
+        $keywords = $this->tester->grabFixture('tags');
+        foreach ($keywords as $keyword)
+            $model->inputKeywords[] = $keyword['word'];
+
+        $this->tester->assertTrue($model->save(), $model->errors);
     }
 
     protected function _after()
@@ -48,6 +56,9 @@ class ModelTest extends \Codeception\Test\Unit
         $this->tester->seeRecord(Seotag::className(), [
             'full_url' => $model->full_url
         ]);
+        $model->refresh();
+        $this->tester->assertNotNull($model->big_image_url);
+        $this->tester->assertNotNull($model->small_image_url);
 
         $this->tester->assertFileExists(Yii::getAlias('@tests/_envs/share/' . $model->id . '/big.jpg'));
         $this->tester->assertFileExists(Yii::getAlias('@tests/_envs/share/' . $model->id . '/small.jpg'));
@@ -73,7 +84,6 @@ class ModelTest extends \Codeception\Test\Unit
             ->leftJoin('{{%tag_to_keyword}}', SeotagKeywords::tableName() . '.`id` = {{%tag_to_keyword}}.`word_id`')
             ->where(['{{%tag_to_keyword}}.`tag_id`' => $model->id]);
 
-        $this->tester->assertEquals($keywordsQuery->all(), $model->keywords);
         $this->tester->assertEquals($keywordsQuery->select('word')->column(), $model->inputKeywords);
 
     }
