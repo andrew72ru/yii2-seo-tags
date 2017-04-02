@@ -32,8 +32,6 @@ services:
 before_script:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS seotag_test;'
   - php tests/_app/yii.php migrate --interactive=0
+  - vendor/bin/codecept build
 
-script:
-#  - |
-    - vendor/bin/codecept build
-    - vendor/bin/codecept run
+script: vendor/bin/codecept run
