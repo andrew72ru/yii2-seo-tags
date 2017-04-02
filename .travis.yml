@@ -1,38 +1,27 @@
-  language: php
+language: php
 
-  php:
-    - 7.0
-  #  - hhvm
+php:
+  - 7.0
+#  - hhvm
 
-  # faster builds on new travis setup not using sudo
-  sudo: false
+branches:
+  only:
+    - develop
 
-  # cache vendor dirs
-  cache:
-    directories:
-      - $HOME/.composer/cache
+services:
+  - mysql
 
-  install:
-    - travis_retry composer self-update && composer --version
-    - travis_retry composer global require "fxp/composer-asset-plugin:^1.2"
-    - travis_retry composer update --dev --prefer-dist --no-interaction
-   setup application:
-    - |
-    touch tests/_app/config/db.local.php
-    echo '<?php return [\'dsn\' => \'mysql:host=127.0.0.1;dbname=seotag_test\'];' => tests/_app/config/db.local.php
-  #    sed -i "s/'cookieValidationKey' => ''/'cookieValidationKey' => 'testkey'/" config/web.php
+install:
+  - travis_retry composer self-update && composer --version
+  - travis_retry composer global require "fxp/composer-asset-plugin:^1.2"
+  - travis_retry composer update --dev --prefer-dist --no-interaction
 
-  branches:
-    only:
-      - develop
+before_script:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS seotag_test;'
+  - touch tests/_app/config/db.local.php
+  - echo '<?php return [\'dsn\' => \'mysql:host=127.0.0.1;dbname=seotag_test\'];' => tests/_app/config/db.local.php
+  - php tests/_app/yii.php migrate --interactive=0
+  - vendor/bin/codecept build
 
-  services:
-    - mysql
-
-  before_script:
-    - mysql -e 'CREATE DATABASE IF NOT EXISTS seotag_test;'
-    - php tests/_app/yii.php migrate --interactive=0
-    - vendor/bin/codecept build
-
-  script:
-    - php vendor/bin/codecept run --coverage
+script:
+  - php vendor/bin/codecept run --coverage
