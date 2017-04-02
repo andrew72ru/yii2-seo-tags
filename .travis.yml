@@ -28,7 +28,7 @@ before_script:
   - echo "<?php return ['dsn' => 'mysql:host=127.0.0.1:3306;dbname=seotag_test','username' => 'root'];" > tests/_app/config/db.local.php
   - mkdir -p tests/_envs/assets
   - php tests/_app/yii.php migrate --interactive=0
-  - pho tests/_app/yii.php fixture/generate-all --interactive=0
+  - php tests/_app/yii.php fixture/generate-all --interactive=0
   - vendor/bin/codecept build
 
 script:
