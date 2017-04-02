@@ -18,8 +18,7 @@ install:
 
 before_script:
   - sudo apt-get update
-  - sudo apt-get -y --reinstall install imagemagick
-  - sudo pecl install imagick
+  - sudo apt-get -y --reinstall install php-imagick
   - echo "extension = imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - mysql -e 'CREATE DATABASE IF NOT EXISTS seotag_test;'
   - composer update --prefer-dist --no-interaction
