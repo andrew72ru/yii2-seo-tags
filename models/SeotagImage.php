@@ -70,6 +70,7 @@ class SeotagImage extends Model
         } catch (\Exception $e)
         {
             $this->addError('large_url', $e->getMessage());
+            Yii::info($e->getMessage(), 'Failed to save image in' . \yii\helpers\StringHelper::basename(__METHOD__));
             return null;
         }
 
@@ -90,6 +91,7 @@ class SeotagImage extends Model
         } catch (\Exception $e)
         {
             $this->addError('small_url', $e->getMessage());
+            Yii::info($e->getMessage(), 'Failed to save image in' . \yii\helpers\StringHelper::basename(__METHOD__));
             return null;
         }
 
