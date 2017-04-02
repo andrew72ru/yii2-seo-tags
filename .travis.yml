@@ -39,7 +39,7 @@ script:
 
 addons:
   code_climate:
-    repo_token: ba1056a468f20b1f15285b9f09ad49ba8ba9cefe7d3612688fd56259d8613a06
+    repo_token: 5a1aaf93feb676913733dcf049bb72017192bfec86705a3cc2291b3cc6d5677e
 
 after_success:
   - vendor/bin/test-reporter --coverage-report tests/_output/coverage.xml
